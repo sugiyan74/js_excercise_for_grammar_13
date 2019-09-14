@@ -17,16 +17,50 @@
  *       - 自作したforEachメソッドを使って実装する
  *         - this経由でforEachメソッドを実行する
  */
-
+const myArray = {
+    array: [1, 2, 3],
+    forEach: function(callback) {
+        for(let i = 0; i < this.array.length; i++) {
+            callback(this.array[i], i);
+        }
+    },
+    map: function(callback) {
+        const returnValues = [];
+        this.forEach((value, index) => {
+            returnValues.push(callback(value, index));
+        });
+        return returnValues
+    },
+    filter: function(callback) {
+        const returnValues = [];
+        this.forEach((value, index) => {
+            if(callback(value, index)) {
+                returnValues.push(value);
+            }   
+        });
+        return returnValues
+    }
+};
 
 // ここでmyArray.forEachを実行して、console.logを使って各値とインデックスを出力する
-
+myArray.forEach((value, index) => {
+    console.log('index:'+ index,'value:' + value);
+});
 
 // ここでmyArray.mapを実行したあと、mapの戻り値とmyArray.arrayをconsole.logで出力する
 // mapメソッドで取得する値は、myArray.arrayの各要素をindex倍した値とする。(value * index)
 // mapの戻り値は[0, 2, 6], myArray.arrayの値は[1, 2, 3]であるべき
-
+const returnMapArray = myArray.map((value, index) => {
+    return value * index;
+});
+console.log('myArray.arrayの値:',myArray.array);
+console.log('returnMapArrayの値:',returnMapArray);
 
 //ここでfilterを実行したあと、filterの戻り値とmyArray.arrayをconsole.logで出力する
 // filterメソッドで取得する値は、myArray.arrayの奇数だけとする
 // filterの戻り値は[1, 3], myArray.arrayの値は[1, 2, 3]であるべき
+const returnFilterArray = myArray.filter((value, index) => {
+    return value % 2 === 1;
+});
+console.log('myArray.arrayの値:',myArray.array);
+console.log('returnFilterArrayの値:',returnFilterArray);
