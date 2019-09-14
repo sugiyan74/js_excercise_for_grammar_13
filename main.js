@@ -63,4 +63,4 @@ const returnFilterArray = myArray.filter((value, index) => {
     return value % 2 === 1;
 });
 console.log('myArray.arrayの値:',myArray.array);
-console.log('returnMapArrayの値:',returnFilterArray);
+console.log('returnFilterArrayの値:',returnFilterArray);
